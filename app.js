@@ -5,6 +5,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const cors = require('koa-cors')
+const jwtKoa = require('koa-jwt')
 
 const index = require('./routes/index')
 
@@ -19,9 +20,23 @@ app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public/dist'))
 app.use(cors({
-  origin: 'http://localhost:8080',
-  
+  origin: '*',
+  // allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
 }))
+app.use(jwtKoa({secret:'jwtdemo'}).unless({
+  path:[/^\/api\/login/] 
+}))
+
+app.use((ctx, next) => {
+  return next().catch((err) => {
+      if (401 == err.status) {
+          ctx.status = 401;
+          ctx.body = 'Protected resource, use Authorization header to get access\n';
+      } else {
+          throw err;
+      }
+  });
+});
 
 // logger
 app.use(async (ctx, next) => {
