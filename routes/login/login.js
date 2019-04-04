@@ -11,14 +11,15 @@ router
             '',
             new Date().toLocaleDateString()
         ]
-        let into = await sql.FIND_ADMIN(user.username).then(res => {
+        let into = await sql.FIND_ADMIN_NAME(user.username).then(res => {
             if(res.length === 0){
                 return true
             }else{
                 let success = {
                     code: 1,
                     message: '登录成功！',
-                    token: TOKE_SERVICE.add({user:res[0].name,id:res[0].id})
+                    token: TOKE_SERVICE.add({user:res[0].name,id:res[0].id}),
+                    level:res[0].root
                 }
                 let err = {
                     message: '该用户已存在，密码输入错误'
@@ -31,7 +32,8 @@ router
                 ctx.body = {
                     code: 1,
                     message: '登录成功！',
-                    token: TOKE_SERVICE.add({user:user.username,id:res.insertId})
+                    token: TOKE_SERVICE.add({user:user.username,id:res.insertId}),
+                    level:1
                 }
             })
         }
@@ -56,8 +58,14 @@ router
     })
     .get('/admindata', async(ctx, next) => {
         const token = ctx.header.authorization  // 获取jwt
-        console.log(token)
-        ctx.body = 1111
+        let payload,age=[],date=[]
+        if(token){
+            payload = await TOKE_SERVICE.decode(token)
+            await sql.ADD_AGE().then(res => {
+                ctx.body =res
+            })
+        }
+        
     })
 
 module.exports = router
