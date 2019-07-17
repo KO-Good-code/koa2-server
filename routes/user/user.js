@@ -1,5 +1,4 @@
 const router = require('koa-router')()
-const TOKE_SERVICE = require('../../Verification/token')
 const sql = require('../../sql/user.sql')
 
 
@@ -17,17 +16,7 @@ router
                 })
     })
     .put('/user',async (ctx,next) => {
-        const token = ctx.header.authorization
-        if(token){
-            let payload = TOKE_SERVICE.decode(token)
-            await sql.judgeRoot(payload.user)
-                .then(res => {
-                    ctx.body = res[0].root
-                })
-                .catch(err => {
-                    ctx.body = err
-                })
-        }
+        
     })
 
 module.exports = router

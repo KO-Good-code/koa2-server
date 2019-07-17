@@ -5,7 +5,6 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const cors = require('koa-cors')
-const jwtKoa = require('koa-jwt')
 
 const index = require('./routes/index')
 
@@ -22,9 +21,6 @@ app.use(require('koa-static')(__dirname + '/public/dist'))
 app.use(cors({
   origin: '*',
   // allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
-}))
-app.use(jwtKoa({secret:'jwtdemo'}).unless({
-  path:[/^\/api\/login/] 
 }))
 
 app.use((ctx, next) => {
