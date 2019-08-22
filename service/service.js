@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 //创建数据池
 const pool = mysql.createPool({
-    host : '127.0.0.1',
+    host : 'localhost',
     user : 'root',
     password : 'cr19950216',
-    database : 'koa-Serve'
+    database : 'skyblog'
 })
 
 class Sqlserve {

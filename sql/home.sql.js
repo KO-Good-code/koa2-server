@@ -1,16 +1,7 @@
 const query = require('../service/service')
 
 const ADMIN = {
-    CEATER_ADMIN : () => query.query(
-        `create table if not exists Admin(
-         id INT NOT NULL AUTO_INCREMENT,
-         name VARCHAR(100) NOT NULL,
-         password VARCHAR(100) NOT NULL,
-         avator VARCHAR(100),
-         root INT NOT NULL,
-         age DATE(),
-         PRIMARY KEY ( id )
-        );`),
+    SELECT_CONTANT: (name) => query.query(`SELECT ${name} FROM Blog_contant`),     // 获取contant表数据 {name} 列名
     INTO_ADMIN : (value) => query.query(`insert into Admin set name=?,password=?,avator=?,age=?,root=1;`,value),
     FIND_ADMIN_NAME : (name) =>query.query(`select * from Admin where name="${name}"`),  
     FIND_ADMIN : () =>query.query(`select count(*) num from Admin`),  
