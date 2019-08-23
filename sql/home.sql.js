@@ -1,7 +1,7 @@
 const query = require('../service/service')
 
 const ADMIN = {
-    SELECT_CONTANT: (name) => query.query(`SELECT ${name} FROM Blog_contant`),     // 获取contant表数据 {name} 列名
+    SELECT_CONTANT: (...arg) => query.query(`SELECT ${arg[0]},${arg[1]} FROM Blog_contant`),     // 获取contant表数据 {name} 列名
     INTO_ADMIN : (value) => query.query(`insert into Admin set name=?,password=?,avator=?,age=?,root=1;`,value),
     FIND_ADMIN_NAME : (name) =>query.query(`select * from Admin where name="${name}"`),  
     FIND_ADMIN : () =>query.query(`select count(*) num from Admin`),  

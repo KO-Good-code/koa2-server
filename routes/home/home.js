@@ -4,10 +4,10 @@ const sql = require('../../sql/home.sql')
 router
     .get('/home', async (ctx, next) => {
         let {
-            name
+            name,
+            time
         } = ctx.query
-        console.log(name)
-        const res = await sql.SELECT_CONTANT(name)
+        const res = await sql.SELECT_CONTANT(name,time)
         console.log(res)
         ctx.body = res
 
