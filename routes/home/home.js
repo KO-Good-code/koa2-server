@@ -5,9 +5,10 @@ router
     .get('/home', async (ctx, next) => {
         let {
             name,
-            time
+            time,
+            tags
         } = ctx.query
-        const res = await sql.SELECT_CONTANT(name,time)
+        const res = await sql.SELECT_CONTANT(name,time,tags)
         console.log(res)
         ctx.body = res
 
