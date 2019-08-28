@@ -9,8 +9,13 @@ router
             tags
         } = ctx.query
         const res = await sql.SELECT_CONTANT(name,time,tags)
-        console.log(res)
-        ctx.body = res
+        let result =  res.map( res => {
+            let r = res.tags.split(",")
+            res.tags = r
+            return res
+        })
+        console.log(result)
+        ctx.body = result
 
     })
     .get('/homeList', async(ctx, next) => {
