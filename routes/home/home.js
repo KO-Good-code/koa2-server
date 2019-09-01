@@ -22,5 +22,8 @@ router
         const result = await sql.SELECT_CONTANT(post_id)
         ctx.body = result[0]
     })
+    .get('/homePv', async(ctx, next) => {
+        
+    })
 
 module.exports = router
