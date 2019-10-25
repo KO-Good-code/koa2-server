@@ -3,6 +3,7 @@ const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const koajwt = require('koa-jwt')
 const logger = require('koa-logger')
 const cors = require('koa-cors')
 
@@ -13,7 +14,7 @@ onerror(app)
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes:['json', 'form', 'text','formdata']
 }))
 app.use(json())
 app.use(logger())
@@ -22,6 +23,8 @@ app.use(cors({
   origin: '*',
   // allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
 }))
+
+
 
 app.use((ctx, next) => {
   return next().catch((err) => {
@@ -33,6 +36,13 @@ app.use((ctx, next) => {
       }
   });
 });
+
+//jwt 权限验证
+app.use( koajwt({
+  secret: 'shhhhh'
+}).unless({
+  path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/api\/console\/login/]
+}))
 
 // logger
 app.use(async (ctx, next) => {

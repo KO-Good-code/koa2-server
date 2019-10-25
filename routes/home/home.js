@@ -14,9 +14,7 @@ router
             res.tags = r
             return res
         })
-        
         ctx.body = result
-
     })
     //帖子详情
     .get('/post', async(ctx, next) => {
@@ -26,18 +24,30 @@ router
     })
     //标签页
     .get('/tags', async(ctx, next) => {
-        const res = await sql.FIND_TAGS()
-        let _r = res.map( res => {
-            let r = res.tags.split(",")
-            res.tags = r
-            return res
-        })
-        let result = []
-        _r.map( res => {
-            result = result.concat(res.tags)
-        })
+        const res = await sql.FIND_TAGS() //获取标签 title
         console.log(res)
-        ctx.body = [...new Set(result)]
+        let result = {}
+        res.map( res => {
+            let r = res.tags
+            if(!result.hasOwnProperty(r)){
+                result[r] = []
+            }
+            let obj = res
+            result[r].push(obj)
+        })
+        ctx.body = result
+    })
+    .get('/archive', async(ctx, next) => {
+        const res = await sql.FIND_ALL_TIME()
+        let result = {}
+        res.map( o => {
+            let r = new Date(o.time).getFullYear()
+            if(!result.hasOwnProperty(r)){
+                result[r] = []
+            }
+            result[r].push(o)
+        })
+        ctx.body = result
     })
 
 module.exports = router

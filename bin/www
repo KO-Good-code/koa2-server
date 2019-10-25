@@ -13,7 +13,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8080');
 // app.set('port', port);
 
 /**
@@ -48,7 +48,7 @@ function getLocalIP() {
  * Listen on provided port, on all network interfaces.
  */
 let loacl = getLocalIP()
-server.listen(port, loacl);
+server.listen(port, '127.0.0.1');
 server.on('error', onError);
 server.on('listening', onListening);
 /**
