@@ -5,6 +5,7 @@ const token = require('../../config/token')
 
 
 router
+    //登录
     .post('/login',async (ctx,next) => {
         let {
             username,
@@ -21,44 +22,79 @@ router
         }else {
             ctx.body = {
                 code: 0,
-                msg: '密码错误'
+                msg: '密码错误或用户名错误'
             }
         }
     })
-    .get('/postList', async (ctx, next ) => {
+    // add post 
+    .post('/post', async (ctx, next ) => {
         try {
             let {
-                pageSize
-            } = ctx.query
-            const res = await homeSql.SELECT_LIST(pageSize)
-            let result = res.map( res => {
-                let r = res.tags.split(",")
-                res.tags = r
-                return res
-            })
+                title,
+                contant,
+                tags
+            } = ctx.request.body
+            let time = new Date().getTime()
+            await sql.ADD_BLOG_POST(
+                title,
+                contant,
+                tags,
+                time)
             ctx.body = {
                 code: 200,
-                data: result
+                msg: '操作成功'
             }
         } catch (error) {
+            console.log(error)
             ctx.body = {
                 code: 0,
                 msg: '服务端出错'
             }
         }
     })
-    .get('/post', async ( ctx, next ) => {
+    //delete post 
+    .delete('/post', async ( ctx, next ) => {
         try {
-            let { post_id } = ctx.query
-            const result = await homeSql.SELECT_CONTANT(post_id)
+            let { post_id } = ctx.request.body
+            await sql.DEL_BLOG_POST(post_id)
             ctx.body = {
-                data:result[0],
+                msg: '操作成功',
                 code: 200
             }
         } catch (error) {
+            console.log(error)
             ctx.body = {
                 code: 0,
-                msg: '服务端出错'
+                msg: error.message
+            }
+        }
+    })
+    // update post data
+    .put('/post', async ctx => {
+        try {
+            let { 
+                title,
+                contant,
+                tags,
+                id
+            } = ctx.request.body
+            let time = new Date().getTime()
+            await sql.UP_BLOG_POST(
+                {title,
+                contant,
+                tags,
+                id,
+                time}
+            )
+            ctx.body = {
+                msg: '操作成功',
+                code: 200
+            }
+        } catch (error) {
+            console.log(error)
+            ctx.body = {
+                code: 0,
+                msg: error.message
             }
         }
     })

@@ -21,7 +21,7 @@ app.use(logger())
 app.use(require('koa-static')(__dirname + '/public/dist'))
 app.use(cors({
   origin: '*',
-  // allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
+  allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
 }))
 
 
@@ -30,7 +30,7 @@ app.use((ctx, next) => {
   return next().catch((err) => {
       if (401 == err.status) {
           ctx.status = 401;
-          ctx.body = 'Protected resource, use Authorization header to get access\n';
+          ctx.body = err;
       } else {
           throw err;
       }
@@ -39,7 +39,7 @@ app.use((ctx, next) => {
 
 //jwt 权限验证
 app.use( koajwt({
-  secret: 'shhhhh'
+  secret: 'mytoken'
 }).unless({
   path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/api\/console\/login/]
 }))
