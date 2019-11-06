@@ -15,7 +15,7 @@ router
         if(res[0] && res[0].passward === passward) {
             let tk = token({username,passward})
             ctx.body = {
-                code: 0,
+                code: 200,
                 userInfo_token: tk,
                 msg: '登录成功'
             }
