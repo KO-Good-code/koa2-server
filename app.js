@@ -1,5 +1,4 @@
 const Koa = require('koa')
-const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
@@ -7,7 +6,10 @@ const koajwt = require('koa-jwt')
 const logger = require('koa-logger')
 const cors = require('koa-cors')
 
-const index = require('./routes/index')
+const index = require('./routes/index');
+
+
+const app = new Koa()
 
 // error handler
 onerror(app)

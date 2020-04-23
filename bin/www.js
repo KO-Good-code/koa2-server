@@ -22,32 +22,32 @@ var port = normalizePort(process.env.PORT || '8080');
 
 var server = http.createServer(app.callback());
 
-function getLocalIP() {
-  const os = require('os');
-  const osType = os.type(); //系统类型
-  const netInfo = os.networkInterfaces(); //网络信息
-  let ip = '';
-  if (osType === 'Windows_NT') { 
-      for (let dev in netInfo) {
+// function getLocalIP() {
+//   const os = require('os');
+//   const osType = os.type(); //系统类型
+//   const netInfo = os.networkInterfaces(); //网络信息
+//   let ip = '';
+//   if (osType === 'Windows_NT') { 
+//       for (let dev in netInfo) {
 
-          for (let j = 0; j < netInfo[dev].length; j++) {
-              if (netInfo[dev][j].family === 'IPv4') {
-                  ip = netInfo[dev][j].address;
-                  return ip;
-              }
-          }
-      }
+//           for (let j = 0; j < netInfo[dev].length; j++) {
+//               if (netInfo[dev][j].family === 'IPv4') {
+//                   ip = netInfo[dev][j].address;
+//                   return ip;
+//               }
+//           }
+//       }
 
-  } else if (osType === 'Linux') {
-      ip = netInfo.eth0[0].address;
-  }
-  console.log(ip)
-  return ip;
-}
+//   } else if (osType === 'Linux') {
+//       ip = netInfo.eth0[0].address;
+//   }
+//   console.log(ip)
+//   return ip;
+// }
 /**
  * Listen on provided port, on all network interfaces.
  */
-let loacl = getLocalIP()
+// let loacl = getLocalIP()
 server.listen(port, '127.0.0.1');
 server.on('error', onError);
 server.on('listening', onListening);
@@ -108,6 +108,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-    console.log('Listening on ' + `${loacl}:${addr.port}`)
+    // console.log('Listening on ' + `${loacl}:${addr.port}`)
   debug('Listening on ' + bind);
 }

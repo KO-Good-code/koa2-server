@@ -8,7 +8,6 @@ router
             pageSize
         } = ctx.query
         const res = await sql.SELECT_LIST(pageSize)
-        console.log(res)
         let result =  res.map( res => {
             let r = res.tags.split(",")
             res.tags = r
