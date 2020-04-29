@@ -4,7 +4,7 @@ const pool = mysql.createPool({
     host : 'localhost',
     user : 'root',
     password : 'cr19950216',
-    database : 'koa'
+    database : 'skyblog'
 })
 
 class Sqlserve {
@@ -30,4 +30,4 @@ class Sqlserve {
     }
 }
 
-module.exports = new Sqlserve()
+export default new Sqlserve()
