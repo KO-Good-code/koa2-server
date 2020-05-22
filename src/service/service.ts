@@ -8,9 +8,10 @@ const pool = mysql.createPool({
 })
 
 class Sqlserve {
+    
     constructor() {}
 
-    async query (sql, value = []) {
+    async query (sql, value:any = []) {
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if(err) {
@@ -18,6 +19,7 @@ class Sqlserve {
                 }else{
                     connection.query(sql, value, (err, rows) => {
                         if(err){
+                            console.log(err)
                             reject( err )
                         }else{
                             resolve( rows )

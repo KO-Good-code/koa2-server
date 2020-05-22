@@ -38,7 +38,7 @@ class user {
 			await sql.DEL_BLOG_POST(post_id);
 			ctx.send(0, '操作成功');
 		} catch (error) {
-			throw new CustomError(201);
+			throw new CustomError(201,error);
 		}
 	}
 

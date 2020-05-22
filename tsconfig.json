@@ -33,6 +33,7 @@
     "esModuleInterop": false,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "sourceMap": true
   },
   "include": ["src/**/*"], // 需要编译的 ts 文件，这里设置为 src 目录下的所有文件
   "exclude": ["node_modules"] // 编译需要排除的文件目录

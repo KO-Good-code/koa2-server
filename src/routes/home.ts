@@ -2,8 +2,6 @@ import sql from '../sql/home.sql';
 import { get, HttpError, CustomError } from '../middleware/decorator';
 import * as Koa from 'koa';
 
-console.log(123)
-
 class home {
 	get api() {
 		return '/api';

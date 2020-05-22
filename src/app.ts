@@ -3,6 +3,7 @@ import router, { load, errorMiddleware } from './middleware/decorator';
 import * as bodyParser from 'koa-bodyparser';
 import * as json from 'koa-json';
 import * as jwt from 'koa-jwt';
+const cors = require('koa-cors')
 // import { integrateGraphql } from './graphql';
 
 const app = new Koa();
@@ -48,6 +49,11 @@ load('routes');
 
 app.use(errorMiddleware());
 
+app.use(cors({
+  origin: '*',
+  allowMethods: ['GET', 'POST', 'DELETE','OPTIONS'],
+}))
+
 	app.use(
 		bodyParser({
 			enableTypes: [ 'json', 'form', 'text', 'formdata' ]
@@ -60,7 +66,7 @@ app.use(errorMiddleware());
 	  jwt({
 	    secret: 'mytoken'
 	  }).unless({
-	    path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/console\/login/]
+	    path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/console\/login/,/^\/fund\/list/]
 	  })
 	)
 
