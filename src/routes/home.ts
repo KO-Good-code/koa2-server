@@ -12,7 +12,6 @@ class home {
 	public async user(ctx: Koa.Context) {
 		try {
 			let { pageSize } = ctx.query;
-			console.log(pageSize)
 			const res: homeList[] = await sql.SELECT_LIST(pageSize);
 			let result: homeList[] = res.map((i) => {
 				typeof i.tags == 'string' && i.tags.split(',');

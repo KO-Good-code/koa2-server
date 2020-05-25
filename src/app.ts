@@ -66,7 +66,7 @@ app.use(cors({
 	  jwt({
 	    secret: 'mytoken'
 	  }).unless({
-	    path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/console\/login/,/^\/fund\/list/]
+	    path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/console\/login/]
 	  })
 	)
 
