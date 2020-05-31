@@ -3,7 +3,7 @@ import query from '../service/service';
 const sql = {
   // 获取股票列表
   async DEPLOY_LIST(page:number, page_size:number = 10):Promise<any> {
-    return query.query(`SELECT * FROM stock ORDER BY total desc limit ${page_size * (page - 1)}, ${page_size}`)
+    return query.query(`SELECT * FROM stock ORDER BY CAST(total AS SIGNED) DESC limit ${page_size * (page - 1)}, ${page_size}`)
   },
   // 获取股票列表
   async FUND_LIST(page:number, page_size:number = 10):Promise<any> {

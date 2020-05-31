@@ -62,16 +62,16 @@ app.use(cors({
 
 	app.use(json());
 
-	app.use(
-	  jwt({
-	    secret: 'mytoken'
-	  }).unless({
-	    path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/console\/login/]
-	  })
-	)
+	// app.use(
+	//   jwt({
+	//     secret: 'mytoken'
+	//   }).unless({
+	//     path: [/^\/api\/home/,/^\/api\/post/,/^\/api\/tags/,/^\/api\/archive/,/^\/console\/login/]
+	//   })
+	// )
 
 	app.use(router.routes()); // 加载路由
 
-	app.listen(3000, '127.0.0.1' ,() => {
-		console.log(`server running success at http://127.0.0.1:3000`);
+	app.listen(8000, '127.0.0.1' ,() => {
+		console.log(`server running success at http://127.0.0.1:8000`);
 	}); // 此应用会监听3000端口
