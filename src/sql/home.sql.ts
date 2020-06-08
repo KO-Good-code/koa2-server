@@ -3,7 +3,7 @@ import query from '../service/service';
 const ADMIN = {
 	// 获取contant表数据 {name} 列名
 	SELECT_LIST: (...arg): Promise<any> =>
-		query.query(`SELECT tags, title, id, time FROM blog_contant limit ${8 * (arg[0] - 1)}, 8`),
+		query.query(`SELECT tags, title, id, time FROM blog_contant ${arg[2] === 'all' ? '':`where find_in_set('${arg[2]}', tags)`} limit ${arg[1] * (arg[0] - 1)}, ${arg[1]}`),
 	//查询特定的帖子
 	SELECT_CONTANT: (id: number): Promise<any> =>
 		query.query(`SELECT contant, title, tags FROM blog_contant where id="${id}"`),

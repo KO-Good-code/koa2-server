@@ -2,8 +2,8 @@ const mysql = require('mysql');
 
 //创建数据池
 const pool = mysql.createPool({
-    host : '127.0.0.1',
-    // host : '120.76.245.227',
+    // host : '127.0.0.1',
+    host : '120.76.245.227',
     user : 'root',
     password : 'cr19950216',
     database : 'chenrui'
